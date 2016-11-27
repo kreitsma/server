@@ -8,7 +8,7 @@ module.exports = React.createClass({
     return {data: []};
   },
   componentDidMount: function() {
-    var temp = [{title: "Testing", id: 1, description: "This is a test job."}, {title: "Testing 2 Components", id: 2, description: "Second test job."}]
+    var temp = [{title: "Testing", id: 1, description: "This is a test job.", workers: ["Mitch Stark", "Ethan Clark"]}, {title: "Testing 2 Components", id: 2, description: "Second test job.", workers: ["Kyle Reitsma", "Ben Kastner"]}]
     this.setState({data: temp})
   },
   render: function() {

@@ -8,7 +8,7 @@ module.exports = React.createClass({
   render: function() {
     var volunteerJobNodes = this.props.data.map(function(volunteerJob) {
       return (
-        <Job id={volunteerJob.id} title={volunteerJob.title} key={volunteerJob.id}>
+        <Job id={volunteerJob.id} title={volunteerJob.title} key={volunteerJob.id} workers={volunteerJob.workers}>
           {volunteerJob.description}
         </Job>
       );

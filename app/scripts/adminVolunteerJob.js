@@ -3,6 +3,8 @@ import React from 'react';
 import Remarkable from 'remarkable';
 import { Link } from 'react-router';
 
+import VolunteerList from './adminVolunteers.js'
+
 module.exports = React.createClass({
    rawMarkup: function() {
     var md = new Remarkable({html: true});
@@ -16,6 +18,7 @@ module.exports = React.createClass({
           {this.props.title}
         </h2>
         <span dangerouslySetInnerHTML={this.rawMarkup()} />
+        <VolunteerList data={this.props.workers} />
       </div>
     );
   }
