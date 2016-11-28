@@ -8,3 +8,5 @@ The admin view will display all the different volunteer categories and the names
 volunteers under each category that they signed up for. There will also be a display for
 businesses and their services. A stretch goal would also be to add a way for an admin to add
 new volunteer categories and to view individual events.
+
+The team members for this project are Ethan Clark, Benjamin Kastner, Kyle Reitsma, and Mitch Stark.
