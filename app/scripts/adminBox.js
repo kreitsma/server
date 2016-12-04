@@ -4,13 +4,32 @@ import $ from 'jquery';
 import JobList from './adminVolunteerJobList.js'
 
 module.exports = React.createClass({
+
   getInitialState: function(){
     return {data: []};
   },
-  componentDidMount: function() {
-    var temp = [{title: "Testing", id: 1, description: "This is a test job.", workers: ["Mitch Stark", "Ethan Clark"]}, {title: "Testing 2 Components", id: 2, description: "Second test job.", workers: ["Kyle Reitsma", "Ben Kastner"]}]
-    this.setState({data: temp})
+
+  // Use to AJAX to get jobs from the server
+  loadJobsFromServer: function() {
+      $.ajax({
+          url: this.props.url,
+          dataType: 'json',
+          cache: false,
+      })
+      .done(function(result){
+          this.setState({data: result});
+      }.bind(this))
+      .fail(function(xhr, status, errorThrown) {
+          console.error(this.props.url, status, err.toString());
+      }.bind(this));
   },
+
+    // Called automatically by React after a component is rendered for the first time
+    componentDidMount: function() {
+        this.loadJobsFromServer();
+        setInterval(this.loadJobsFromServer, this.props.pollInterval);
+    },
+
   render: function() {
     return (
       <div className="adminBox">
