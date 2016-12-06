@@ -44,21 +44,38 @@ app.get('/api/business', function(req, res) {
 });
 
 
-//add a business
+/* add or update a business
+If the business (based on the name field) does not exist, it is created.
+If the business already exists, all fields are changed to match the values give.
+
+This means that even if you update one filed, you must send back the original values of all the other fields.
+*/
 app.put('/api/business', function(req, res) {
-  db.collection("business").insertOne({name: req.body.name, owner: req.body.owner, service: req.body.service, email: req.body.email, address: req.body.address, phone: req.body.phone}, function(err, result){
+  db.collection("business").updateOne({name: req.body.name}, {name: req.body.name, owner: req.body.owner, service: req.body.service, email: req.body.email, address: req.body.address, phone: req.body.phone},{upsert: true}, function(err, result){
+    console.log(req.body.name);//logging output for debugging purposes
+    console.log(req.body.owner);
+    console.log(req.body.phone);
+
     if (err) throw err;
     res.json(200);
   });
 })
 
+/*add or update a volunteer
+If the volunteer (based on the id field, the prefix of their email address) does not exist, they are created.
+If the volunteer already exists, all fields are changed to match the values give.
 
-
-//insert a new volunteer
+This means that even if you update one filed, you must send back the original values of all the other fields.
+*/
 app.put('/api/volunteer', function(req, res) {
-  db.collection("volunteers").insertOne({id: req.body.emailPrefix, name: req.body.volunteerName, phone: req.body.phone}, function(err, result){
-console.log(req.body.emailPrefix);//logging output for debugging purposes
+  var myjobs = req.body.jobsIwant;
+//split prefix off of email address
+var emailTokens = req.body.email.split("@");
+console.log(emailTokens);//for debugging
+  db.collection("volunteers").updateOne({id: emailTokens[0]}, {id: emailTokens[0], email: req.body.email, name: req.body.volunteerName, phone: req.body.phone, jobsIwant: myjobs}, {upsert: true}, function(err, result){
+console.log(req.body.email);//logging output for debugging purposes
 console.log(req.body.volunteerName);
+console.log(req.body.jobsIwant);
 
     if (err) throw err;
     res.json(200);
