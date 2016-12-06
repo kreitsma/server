@@ -82,6 +82,30 @@ console.log(req.body.jobsIwant);
   });
 })
 
+
+/*get a volunteer by providing their email address
+
+returns an array with (hopefully) one element.
+*/
+app.get('/api/volunteer/:email', function(req, res) {
+//split prefix off of email address
+var emailTokens = req.params.email.split("@");
+console.log(emailTokens);//for debugging
+  db.collection("volunteers").find({id: emailTokens[0]}).toArray(function(err, volunteers) {
+    assert.equal(err, null);
+    res.json(volunteers);
+  });
+})
+
+
+
+
+
+
+
+
+
+
 app.use('*', express.static(APP_PATH));
 
 app.listen(app.get('port'), function() {
