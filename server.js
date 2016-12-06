@@ -36,7 +36,6 @@ app.get('/api/jobs', function(req, res) {
 
 app.post('/api/jobs', function(req, res) {
         var newJob = {
-            id: Date.now(),
             title: req.body.volunteer_job,
             description: req.body.volunteer_description,
             workers: []
